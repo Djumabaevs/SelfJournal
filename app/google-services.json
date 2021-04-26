@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "156908645791",
+    "project_id": "selfjournal-3368f",
+    "storage_bucket": "selfjournal-3368f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156908645791:android:0faa1ca61cd11260dc21aa",
+        "android_client_info": {
+          "package_name": "com.bignerdranch.android.selfjournal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156908645791-m9bndcj7rgbtlagainvprg8nv673rcos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0w96RmSQHume0I0LjbOfGQYzlgfqGgdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156908645791-m9bndcj7rgbtlagainvprg8nv673rcos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SelfJournal</string>
+    <string name="self_gratitude_journal">Self.Gratitude.Journal</string>
+    <string name="what_are_you_grateful_for_today">What are you grateful for today?</string>
 </resources>

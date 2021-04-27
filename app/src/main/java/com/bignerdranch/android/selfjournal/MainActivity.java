@@ -2,6 +2,7 @@ package com.bignerdranch.android.selfjournal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         getStartedButton.setOnClickListener(view -> {
             //go to login activity
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
         });
     }

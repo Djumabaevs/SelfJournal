@@ -3,8 +3,28 @@ package com.bignerdranch.android.selfjournal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateAccountActivity extends AppCompatActivity {
+    private Button loginButton;
+    private Button createAcctButton;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
+
+    //Firebase connection
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private ProgressBar progressBar;
+    private EditText userNameEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

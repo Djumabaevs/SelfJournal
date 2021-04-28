@@ -30,5 +30,22 @@ public class CreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        createAcctButton = findViewById(R.id.create_account_button);
+        progressBar = findViewById(R.id.create_account_progress);
+        emailEditText = findViewById(R.id.email_account);
+        passwordEditText = findViewById(R.id.password_account);
+        userNameEditText = findViewById(R.id.username_account);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentUser = firebaseAuth.getCurrentUser();
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 }

@@ -7,6 +7,14 @@ public class JournalApi extends Application {
     private String userId;
     private static JournalApi instance;
 
+    public JournalApi() {}
+
+    public static JournalApi getInstance() {
+        if(instance == null)
+            instance = new JournalApi();
+        return instance;
+    }
+
     public String getUsername() {
         return username;
     }

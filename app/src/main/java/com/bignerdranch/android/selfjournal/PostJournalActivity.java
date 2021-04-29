@@ -11,11 +11,14 @@ public class PostJournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_journal);
 
-        Bundle bundle = getIntent().getExtras();
+
+
+
+       /* Bundle bundle = getIntent().getExtras(); no longer needed, instead we can use instance og singleton class
 
         if(bundle != null) {
             String username = bundle.getString("username");
             String userId = bundle.getString("userId");
-        }
+        }*/
     }
 }

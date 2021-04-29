@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bignerdranch.android.selfjournal.util.JournalApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -109,6 +110,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                                                 if(Objects.requireNonNull(documentSnapshotTask.getResult()).exists()) {
                                                     progressBar.setVisibility(View.INVISIBLE);
                                                     String name = documentSnapshotTask.getResult().getString("username");
+
+                                                    JournalApi journalApi = JournalApi.getInstance(); //global api
+                                                    journalApi.setUserId(currentUserId);
+                                                    journalApi.setUsername(name);
 
                                                     Intent intent = new Intent(CreateAccountActivity.this,
                                                             PostJournalActivity.class);

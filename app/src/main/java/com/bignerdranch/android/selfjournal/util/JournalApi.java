@@ -1,11 +1,11 @@
-package util;
+package com.bignerdranch.android.selfjournal.util;
 
 import android.app.Application;
 
 public class JournalApi extends Application {
     private String username;
     private String userId;
-    private static JournalApi instance;
+    public static JournalApi instance;
 
     public JournalApi() {}
 

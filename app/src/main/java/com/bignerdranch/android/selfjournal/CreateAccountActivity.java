@@ -3,6 +3,7 @@ package com.bignerdranch.android.selfjournal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -106,7 +107,16 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     documentReference.get()
                                             .addOnCompleteListener(documentSnapshotTask -> {
                                                 if(Objects.requireNonNull(documentSnapshotTask.getResult()).exists()) {
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                    String name = documentSnapshotTask.getResult().getString("username");
 
+                                                    Intent intent = new Intent(CreateAccountActivity.this,
+                                                            PostJournalActivity.class);
+                                                    intent.putExtra("username", name);
+                                                    intent.putExtra("userId", currentUserId);
+                                                    startActivity(intent);
+                                                } else {
+                                                    progressBar.setVisibility(View.INVISIBLE);
                                                 }
                                             });
                                 })

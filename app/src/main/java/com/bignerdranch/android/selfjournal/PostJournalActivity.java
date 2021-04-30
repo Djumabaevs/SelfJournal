@@ -3,13 +3,26 @@ package com.bignerdranch.android.selfjournal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+
+import com.bignerdranch.android.selfjournal.databinding.ActivityPostJournalBinding;
 
 public class PostJournalActivity extends AppCompatActivity {
+    private ActivityPostJournalBinding binding;
+
+    private String currentUserId;
+    private String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityPostJournalBinding variable =ActivityPostJournalBinding.inflate(this.getLayoutInflater());
+        this.binding = variable;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_journal);
+        variable = this.binding;
+        setContentView((View)variable.getRoot());
+
+
+
 
 
 

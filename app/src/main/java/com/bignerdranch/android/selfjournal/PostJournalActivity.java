@@ -94,6 +94,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         if(requestCode == GALLERY_CODE && resultCode == RESULT_OK) {
             if(data != null) {
                 imageUri = data.getData();
+                binding.postImageBackgroundView.setImageURI(imageUri);
             }
         }
     }

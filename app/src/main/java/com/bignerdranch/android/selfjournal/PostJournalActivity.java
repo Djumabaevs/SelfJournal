@@ -7,15 +7,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bignerdranch.android.selfjournal.databinding.ActivityPostJournalBinding;
 import com.bignerdranch.android.selfjournal.util.JournalApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class PostJournalActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_CODE = 1;
@@ -47,6 +52,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
 
         binding.postCameraButton.setOnClickListener(this);
         binding.postSaveJournalButton.setOnClickListener(this);
+        binding.postProgressBar.setVisibility(View.INVISIBLE);
 
         if(JournalApi.getInstance() != null) {
             currentUserId = JournalApi.getInstance().getUserId();
@@ -78,13 +84,42 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch ((v.getId())) {
             case R.id.post_save_journal_button:
-
+                saveJournal();
                 break;
             case R.id.post_camera_button:
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY_CODE);
                 break;
+        }
+    }
+
+    private void saveJournal() {
+        String title = binding.postTitleEt.getText().toString().trim();
+        String thoughts = binding.postDescriptionEt.getText().toString().trim();
+
+        binding.postProgressBar.setVisibility(View.VISIBLE);
+
+        if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(thoughts) && imageUri != null) {
+
+            StorageReference filepath = storageReference
+                    .child("journal_images")
+                    .child("my_image_" + Timestamp.now().getSeconds());
+            filepath.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            binding.postProgressBar.setVisibility(View.INVISIBLE);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            binding.postProgressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+        } else {
+            binding.postProgressBar.setVisibility(View.INVISIBLE);
         }
     }
 

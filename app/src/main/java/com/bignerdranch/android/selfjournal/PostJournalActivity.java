@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.bignerdranch.android.selfjournal.databinding.ActivityPostJournalBinding;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -28,6 +30,7 @@ import java.util.Date;
 
 public class PostJournalActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_CODE = 1;
+    private static final String TAG = "Post Journal Activity" ;
     private ActivityPostJournalBinding binding;
 
     private String currentUserId;
@@ -51,6 +54,8 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         variable = this.binding;
         setContentView((View)variable.getRoot());
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -98,6 +103,9 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
+
+
     private void saveJournal() {
         String title = binding.postTitleEt.getText().toString().trim();
         String thoughts = binding.postDescriptionEt.getText().toString().trim();
@@ -105,8 +113,6 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         binding.postProgressBar.setVisibility(View.VISIBLE);
 
         if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(thoughts) && imageUri != null) {
-
-
 
             StorageReference filepath = storageReference
                     .child("journal_images")
@@ -133,7 +139,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
                                             finish();
                                         })
                                         .addOnFailureListener(e -> {
-
+                                            Log.d(TAG, "onFailure: " + e.getMessage());
                                         });
                             });
                         }
@@ -150,6 +156,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
     }
 
 
+    
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

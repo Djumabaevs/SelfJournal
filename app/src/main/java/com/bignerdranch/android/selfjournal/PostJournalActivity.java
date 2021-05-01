@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bignerdranch.android.selfjournal.databinding.ActivityPostJournalBinding;
+import com.bignerdranch.android.selfjournal.model.Journal;
 import com.bignerdranch.android.selfjournal.util.JournalApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,9 +19,12 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.Date;
 
 public class PostJournalActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_CODE = 1;
@@ -102,6 +106,8 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
 
         if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(thoughts) && imageUri != null) {
 
+
+
             StorageReference filepath = storageReference
                     .child("journal_images")
                     .child("my_image_" + Timestamp.now().getSeconds());
@@ -109,7 +115,27 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            binding.postProgressBar.setVisibility(View.INVISIBLE);
+                            filepath.getDownloadUrl().addOnSuccessListener(uri -> {
+                                String imageUrl  =uri.toString();
+                                Journal journal = new Journal();
+                                journal.setTitle(title);
+                                journal.setThought(thoughts);
+                                journal.setImageUrl(imageUrl);
+                                journal.setTimeAdded(new Timestamp(new Date()));
+                                journal.setUserName(currentUsername);
+                                journal.setUserId(currentUserId);
+
+                                collectionReference.add(journal)
+                                        .addOnSuccessListener(documentReference -> {
+                                            binding.postProgressBar.setVisibility(View.INVISIBLE);
+                                            startActivity(new Intent(PostJournalActivity.this,
+                                                    JournalListActivity.class));
+                                            finish();
+                                        })
+                                        .addOnFailureListener(e -> {
+
+                                        });
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -122,6 +148,8 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
             binding.postProgressBar.setVisibility(View.INVISIBLE);
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

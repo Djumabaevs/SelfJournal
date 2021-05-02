@@ -10,11 +10,17 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private Button createAcctButton;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference collectionReference  =db.collection("Users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,10 @@ public class LoginActivity extends AppCompatActivity {
 
         createAcctButton.setOnClickListener(view -> {
             startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
+        });
+
+        loginButton.setOnClickListener(view -> {
+
         });
 
     }

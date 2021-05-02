@@ -46,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.email_sign_in_button);
         createAcctButton = findViewById(R.id.create_account_button_login);
 
+        emailAddress = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         createAcctButton.setOnClickListener(view -> {
@@ -83,7 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                                              journalApi.setUserId(snapshot.getString("userId"));
 
                                              //go to ListActivity
-
+                                             startActivity(new Intent(LoginActivity.this,
+                                                     PostJournalActivity.class));
                                          }
 
                                         }

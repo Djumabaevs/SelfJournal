@@ -19,4 +19,5 @@
     <string name="list_nothoughts">Write a Journal entry by clicking "+" icon above</string>
     <string name="title">Title</string>
     <string name="thoughts">Thoughts...</string>
+    <string name="date_created">Date created</string>
 </resources>

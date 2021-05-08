@@ -21,9 +21,10 @@
 
     <TextView
         android:id="@+id/list_no_thoughts"
-        android:layout_width="216dp"
-        android:layout_height="52dp"
+        android:layout_width="290dp"
+        android:layout_height="54dp"
         android:text="@string/list_nothoughts"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

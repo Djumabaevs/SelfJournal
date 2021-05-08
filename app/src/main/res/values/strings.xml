@@ -17,4 +17,6 @@
     <string name="add_thoughts">Add thoughts</string>
     <string name="sign_out">Sign out</string>
     <string name="list_nothoughts">Write a Journal entry by clicking "+" icon above</string>
+    <string name="title">Title</string>
+    <string name="thoughts">Thoughts...</string>
 </resources>

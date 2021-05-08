@@ -1,6 +1,7 @@
 package com.bignerdranch.android.selfjournal.ui;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bignerdranch.android.selfjournal.R;
 import com.bignerdranch.android.selfjournal.model.Journal;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,8 +42,15 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
         viewHolder.title.setText(journal.getTitle());
         viewHolder.thoughts.setText(journal.getThought());
 //        viewHolder.name.setText(journal.getUserName());
+        imageUrl = journal.getImageUrl();
+        String timeAgo = (String) DateUtils.getRelativeTimeSpanString(journal.getTimeAdded().getSeconds() * 1000);
 
-
+        Picasso.get()
+                .load(imageUrl)
+                .placeholder(R.drawable.batman)
+                .fit()
+                .into(viewHolder.image);
+        viewHolder.dateAdded.setText(timeAgo);
     }
 
     @Override

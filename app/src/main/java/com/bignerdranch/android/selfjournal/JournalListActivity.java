@@ -13,10 +13,15 @@ import android.widget.TextView;
 
 import com.bignerdranch.android.selfjournal.model.Journal;
 import com.bignerdranch.android.selfjournal.ui.JournalRecyclerAdapter;
+import com.bignerdranch.android.selfjournal.util.JournalApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
@@ -81,5 +86,21 @@ public class JournalListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        collectionReference.whereEqualTo("userId", JournalApi.getInstance().getUserId())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if(!queryDocumentSnapshots.isEmpty()) {
+                        for(QueryDocumentSnapshot journals: queryDocumentSnapshots) {
+                            Journal journal = journals.toObject(Journal.class);
+
+                        }
+                    } else {
+
+                    }
+                })
+                .addOnFailureListener(e -> {
+
+                });
     }
 }

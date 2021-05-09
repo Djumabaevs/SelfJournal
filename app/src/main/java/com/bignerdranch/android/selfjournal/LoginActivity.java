@@ -72,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         FirebaseUser user = firebaseAuth.getCurrentUser();
-                        assert user != null;
                         String currentUserId = user.getUid();
 
                         collectionReference

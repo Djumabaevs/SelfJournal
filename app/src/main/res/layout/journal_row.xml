@@ -7,6 +7,22 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:elevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/journal_row_username"
+            android:text="Bakyt"
+            android:padding="3dp"
+            android:textSize="17sp"
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bignerdranch.android.selfjournal.model.Journal;
@@ -93,9 +94,15 @@ public class JournalListActivity extends AppCompatActivity {
                     if(!queryDocumentSnapshots.isEmpty()) {
                         for(QueryDocumentSnapshot journals: queryDocumentSnapshots) {
                             Journal journal = journals.toObject(Journal.class);
-
+                            journalList.add(journal);
                         }
+                        //invoke recycler view
+                        journalRecyclerAdapter = new JournalRecyclerAdapter(JournalListActivity.this,
+                                journalList);
+                        recyclerView.setAdapter(journalRecyclerAdapter);
+                        journalRecyclerAdapter.notifyDataSetChanged();
                     } else {
+                        noJournalEntry.setVisibility(View.VISIBLE);
 
                     }
                 })

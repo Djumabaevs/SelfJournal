@@ -27,6 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class PostJournalActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_CODE = 1;
@@ -54,6 +55,8 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         variable = this.binding;
         setContentView((View)variable.getRoot());
+
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 

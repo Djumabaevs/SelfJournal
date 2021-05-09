@@ -28,6 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private Button createAcctButton;
@@ -50,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         emailAddress = findViewById(R.id.email);
         password = findViewById(R.id.password);
         progressBar = findViewById(R.id.login_progress);
+
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

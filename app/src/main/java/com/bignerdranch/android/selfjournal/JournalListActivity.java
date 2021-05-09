@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class JournalListActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
@@ -46,6 +47,8 @@ public class JournalListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_journal_list);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
         noJournalEntry = findViewById(R.id.list_no_thoughts);
         recyclerView = findViewById(R.id.recycler_view);

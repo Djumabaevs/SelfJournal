@@ -7,6 +7,8 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:background="@color/centerGcolor"
+        android:alpha="0.7"
         android:orientation="horizontal"
         android:elevation="10dp"
         android:gravity="end"

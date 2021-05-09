@@ -10,4 +10,7 @@
     <color name="mars">#aa2ee6</color>
     <color name="dark_orange">#ff6701</color>
     <color name="dark_green">#184d47</color>
+    <color name="startGcolor">#3a1c71</color>
+    <color name="centerGcolor">#d76d77</color>
+    <color name="endGcolor">#ffaf7b</color>
 </resources>

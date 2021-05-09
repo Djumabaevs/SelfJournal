@@ -5,6 +5,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecyclerAdapter.ViewHolder> {
     private Context context;
     private List<Journal> journalList;
+    private ImageButton shareButton;
 
     public JournalRecyclerAdapter(Context context, List<Journal> journalList) {
         this.context = context;
@@ -73,6 +75,8 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
             dateAdded = itemView.findViewById(R.id.journal_timestamp_list);
             image = itemView.findViewById(R.id.journal_image_list);
             name = itemView.findViewById(R.id.journal_row_username);
+            shareButton = itemView.findViewById(R.id.journal_row_share_button);
+
         }
     }
 }

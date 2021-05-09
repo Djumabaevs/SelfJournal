@@ -41,7 +41,7 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
         Journal journal = journalList.get(position);
         viewHolder.title.setText(journal.getTitle());
         viewHolder.thoughts.setText(journal.getThought());
-//        viewHolder.name.setText(journal.getUserName());
+        viewHolder.name.setText(journal.getUserName());
         imageUrl = journal.getImageUrl();
         String timeAgo = (String) DateUtils.getRelativeTimeSpanString(journal.getTimeAdded().getSeconds() * 1000);
 
@@ -72,7 +72,7 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
             thoughts = itemView.findViewById(R.id.journal_thought_list);
             dateAdded = itemView.findViewById(R.id.journal_timestamp_list);
             image = itemView.findViewById(R.id.journal_image_list);
-//            name = itemView.findViewById(R.id.username_account);
+            name = itemView.findViewById(R.id.journal_row_username);
         }
     }
 }

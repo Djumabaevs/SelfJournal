@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private Button getStartedButton;
 
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getStartedButton = findViewById(R.id.start_button);
+
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
         getStartedButton.setOnClickListener(view -> {
             //go to login activity

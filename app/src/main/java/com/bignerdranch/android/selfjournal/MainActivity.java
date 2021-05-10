@@ -1,5 +1,6 @@
 package com.bignerdranch.android.selfjournal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -29,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
         getStartedButton = findViewById(R.id.start_button);
 
         Objects.requireNonNull(getSupportActionBar()).setElevation(0);
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+            }
+        };
 
         getStartedButton.setOnClickListener(view -> {
             //go to login activity

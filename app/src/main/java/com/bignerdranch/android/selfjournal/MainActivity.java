@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.bignerdranch.android.selfjournal.model.Journal;
+import com.bignerdranch.android.selfjournal.util.JournalApi;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
@@ -47,9 +50,18 @@ public class MainActivity extends AppCompatActivity {
                             .whereEqualTo("userId", currentUserId)
                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                 @Override
-                                public void onEvent(@Nullable QuerySnapshot value,
+                                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
                                                     @Nullable FirebaseFirestoreException error) {
+                                    if(error != null) {
+                                    }
+                                    String name;
+                                    if(!queryDocumentSnapshots.isEmpty()) {
+                                        for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                                            JournalApi journalApi = JournalApi.getInstance();
+                                            journalApi.setUserId(snapshot.getString("userId"));
 
+                                        }
+                                    }
                                 }
                             });
                 } else {

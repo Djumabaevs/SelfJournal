@@ -59,7 +59,12 @@ public class MainActivity extends AppCompatActivity {
                                         for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
                                             JournalApi journalApi = JournalApi.getInstance();
                                             journalApi.setUserId(snapshot.getString("userId"));
+                                            journalApi.setUsername(snapshot.getString("username"));
 
+                                            startActivity(new Intent(MainActivity.this,
+                                                            JournalListActivity.class)
+                                                    );
+                                            finish();
                                         }
                                     }
                                 }
@@ -73,7 +78,22 @@ public class MainActivity extends AppCompatActivity {
         getStartedButton.setOnClickListener(view -> {
             //go to login activity
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
-
+            finish();
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        currentUser = firebaseAuth.getCurrentUser();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(firebaseAuth != null) {
+            firebaseAuth.removeAuthStateListener(authStateListener);
+        }
     }
 }

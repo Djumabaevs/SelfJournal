@@ -1,7 +1,11 @@
 package com.bignerdranch.android.selfjournal.ui;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +21,9 @@ import com.bignerdranch.android.selfjournal.MainActivity;
 import com.bignerdranch.android.selfjournal.R;
 import com.bignerdranch.android.selfjournal.model.Journal;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecyclerAdapter.ViewHolder> {
@@ -79,10 +85,37 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
             name = itemView.findViewById(R.id.journal_row_username);
             shareButton = itemView.findViewById(R.id.journal_row_share_button);
 
+            Journal journal = new Journal();
+
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(ctx, "Hello", Toast.LENGTH_SHORT).show();
+                    Picasso.get().load(journal.getImageUrl()).into(
+                            new Target() {
+                                @Override
+                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                    Intent intent = new Intent(Intent.ACTION_SEND);
+                                    intent.setType("image/*");
+                                    intent.putExtra(Intent.EXTRA_SUBJECT, "Here I share my thoughts with you...");
+                                    intent.putExtra(Intent.EXTRA_TEXT, MessageFormat.format(
+                                            "Title: {0}\n" + "Thought: {1}\n",
+                                                    journal.getTitle(), journal.getThought()));
+                                    intent.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
+                                    ctx.startActivity(Intent.createChooser(intent, ctx.getResources()
+                                    .getText(R.string.share_text)));
+                                }
+
+                                @Override
+                                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                    Log.d("Failed", "onBitmapFailed  ");
+                                }
+
+                                @Override
+                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                    Log.d("Failed", "onPrepareLoadFailed  ");
+                                }
+                            }
+                    );
                 }
             });
 

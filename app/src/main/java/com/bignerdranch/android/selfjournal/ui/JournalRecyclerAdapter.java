@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bignerdranch.android.selfjournal.MainActivity;
 import com.bignerdranch.android.selfjournal.R;
 import com.bignerdranch.android.selfjournal.model.Journal;
 import com.squareup.picasso.Picasso;
@@ -76,6 +78,13 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
             image = itemView.findViewById(R.id.journal_image_list);
             name = itemView.findViewById(R.id.journal_row_username);
             shareButton = itemView.findViewById(R.id.journal_row_share_button);
+
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(ctx, "Hello", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }

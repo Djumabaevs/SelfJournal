@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bignerdranch.android.selfjournal.MainActivity;
@@ -23,6 +25,10 @@ import com.bignerdranch.android.selfjournal.model.Journal;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -69,6 +75,7 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        private static final String TAG = "WOW" ;
         public TextView title, thoughts, dateAdded, name;
         public ImageView image;
         String userId;
@@ -119,6 +126,27 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
                 }
             });
 
+        }
+
+        public Uri getLocalBitmapUri(Bitmap bmp) {
+            Uri bmpUri = null;
+            try {
+                File imagePath = new File(context.getExternalFilesDir(null).toString());
+                if(!imagePath.exists()) {
+                    boolean hasBeenCreated = imagePath.mkdirs();
+                    Log.d(TAG, "imagePath does exist. was it created?" + hasBeenCreated);
+                }
+                File newFile = new File(imagePath, "share_image_" + System.currentTimeMillis() + ".png");
+                FileOutputStream out = new FileOutputStream(newFile);
+                bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+                String authorities = context.getPackageName() + ".fileprovider";
+                bmpUri = FileProvider.getUriForFile(context, authorities, newFile);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return bmpUri;
         }
     }
 }
